@@ -35,8 +35,6 @@ app.use("/v1/", require("./routes/VendaRoutes.js"))
 app.use("/v1/", require("./routes/ClienteRoutes.js"))
 app.use("/v1/", require("./routes/ProdutoRoutes.js"))
 
- 
-
 // Sample route
 app.get('/', (req, res) => {
   res.send('Hello World!');
