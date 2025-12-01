@@ -16,7 +16,9 @@ function Login({onLogin}) {
         const user =  axios.post('http://localhost:3000/v1/login', body).then(response => {
             console.log('User data:', response.data);
             console.log(response.data);
+            localStorage.setItem('usuario', response.data.user.id);
             onLogin(response.data.user);
+
        
         }).catch(error => {
              alert('Login ou senha inválidos');

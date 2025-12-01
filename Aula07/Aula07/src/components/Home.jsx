@@ -11,12 +11,18 @@ import UsuarioUpdate from './UsuarioUpdate'
 import Produto from './Produto'
 import ProdutoList from './ProdutoList'
 import ProdutoUpdate from './ProdutoUpdate'
+import ClienteList from './ClienteList'
+import Cliente from './Cliente'
+import ClienteUpdate from './ClienteUpdate'
+import Vendas from './Vendas'
+import VendasList from './VendasList'
 
 function Home() {
    
     const [page,setPage]  = useState('home');
     const [idUser,setIdUser]  = useState(1);
     const [idProduto, setIdProduto] = useState(1)
+    const [idCliente, setIdCliente] = useState(1)
 
     function renderContent() {
         if (page === 'home') { 
@@ -42,7 +48,8 @@ function Home() {
         }
         if (page === 'updateproduto') {
             console.log('ID do produto para atualizar:', idProduto); 
-            return <ProdutoUpdate setCurrentPage={setPage} idProduto={idProduto} />; 
+            return <ProdutoUpdate setCurrentPage={setPage} idProduto={idProduto} />;
+        } 
         if (page === 'cliente') {
             return <ClienteList setCurrentPage={setPage} setIdCliente={setIdCliente}  />;
         } 
@@ -53,6 +60,13 @@ function Home() {
         if (page === 'updatecliente') {
             console.log('ID do cliente para atualizar:', idCliente);
             return <ClienteUpdate setCurrentPage={setPage} idCliente={idCliente} />;
+        }
+
+        if (page === 'vendas') {
+            return <VendasList setCurrentPage={setPage} setIdCliente={setIdCliente}  />;
+        } 
+        if (page === 'newvendas') {
+            return <Vendas setCurrentPage={setPage}/>;
         }
         
     }

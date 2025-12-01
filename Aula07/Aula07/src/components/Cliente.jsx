@@ -11,12 +11,53 @@ function Cliente({ setCurrentPage }) {
     const [email,setEmail]  = useState('');
     const [senha,setSenha]  = useState('');
     const [ende,setEnde]  = useState('');
+    const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+    nome: '',
+    endereco: ''
+  });
+
     
     function handleBack() {
         setCurrentPage('cliente');
     }
 
+    function validateFields() {
+        let valide = true;
+        if (nome.trim() === '') {
+            setErrors(prevErrors => ({ ...prevErrors, nome: 'Nome é obrigatório.' }));
+            valide = valide && false;
+        }
+        if (email.trim() === '') {
+            setErrors(prevErrors => ({ ...prevErrors, email: 'Email é obrigatório.' }));
+            valide = valide && false;
+        }
+        if (senha.trim() === '') {
+            setErrors(prevErrors => ({ ...prevErrors, password: 'Senha é obrigatória.' }));
+            valide = valide && false;
+        }
+        if (ende.trim() === '') {
+            setErrors(prevErrors => ({ ...prevErrors, endereco: 'Endereço é obrigatório.' }));
+            valide = valide && false;
+        }
+        if (valide) {
+        setErrors({
+            email: '',
+            password: '',
+            nome: '',
+            endereco: ''
+        });
+    }
+        return valide;
+    }
+
     function handleSave() {
+
+        if (!validateFields()) {
+            return;
+        }    
+         
         const body = {
             name: nome,
             email: email,
@@ -40,15 +81,31 @@ function Cliente({ setCurrentPage }) {
         <div>
          <div  className="conteudo">
             <h1>Cadastro de Cliente</h1>
-            <TextField label="Nome" variant="outlined" fullWidth margin="normal" onChange={(e) => setNome(e.target.value)} />
-            <TextField label="Email" variant="outlined" fullWidth margin="normal" onChange={(e) => setEmail(e.target.value)} />
-            <TextField label="Senha" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setSenha(e.target.value)} />
-            <TextField label="Endereço" variant="outlined" fullWidth margin="normal" onChange={(e) => setEnde(e.target.value)} />
-            <Button variant="contained" color="primary" style={{marginTop:20}} onClick={handleSave} >Cadastrar</Button>
+            <TextField  label="Nome" required variant="outlined"
+             fullWidth margin="normal" onChange={(e) => setNome(e.target.value)}
+             error={!!errors.nome}
+             helperText={errors.nome}
+             />
+            <TextField label="Email" required variant="outlined" fullWidth margin="normal" 
+            onChange={(e) => setEmail(e.target.value)} 
+            error={!!errors.email}
+            helperText={errors.email}
+            />
+            <TextField label="Senha" required type="password" variant="outlined" fullWidth margin="normal"
+             onChange={(e) => setSenha(e.target.value)} 
+             error={!!errors.password}
+             helperText={errors.password}
+             />
+            <TextField label="Endereço" required variant="outlined" fullWidth margin="normal" 
+            onChange={(e) => setEnde(e.target.value)}
+            error={!!errors.endereco}
+            helperText={errors.endereco}
+            />
+            <Button variant="contained" required color="primary" style={{marginTop:20}} onClick={handleSave} >Cadastrar</Button>
             <div style={{width:20}}>
 
             </div>
-            <Button variant="contained" color="primary" style={{marginTop:20}} onClick={handleBack} >Voltar</Button>
+            <Button variant="contained" required color="primary" style={{marginTop:20}} onClick={handleBack} >Voltar</Button>
          </div>
          </div>
         </>
